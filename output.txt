@@ -1,310 +1,315 @@
-diff --cc .idea/runConfigurations/bin_www.xml
-index b9fec03,a7afcc9..0000000
-deleted file mode 100644,100644
---- a/.idea/runConfigurations/bin_www.xml
-+++ /dev/null
-diff --cc .idea/workspace.xml
-index a05c6cc,9ba0474..0000000
-deleted file mode 100644,100644
---- a/.idea/workspace.xml
-+++ /dev/null
-diff --cc app.js
-index a2de2b9,99e4600..0000000
---- a/app.js
-+++ b/app.js
-@@@ -7,7 -7,9 +7,10 @@@ var bodyParser = require('body-parser')
-  var mongoose = require('mongoose');
-  //var routes = require('./routes/index');
-  var users = require('./routes/users');
-- var routes = require('./routes/pdfToTextConversion');
-++
-+ //var routes = require('./routes/pdfToTextConversion');
-+ var routes = require('./routes/asyncPdfToText');
-+ 
-  var getResumes = require('./routes/getResumes');
-  
-  //connect to database
-diff --cc bin/www
-index 08db510,08db510..0000000
-mode 100755,100644..100755
---- a/bin/www
-+++ b/bin/www
-diff --cc package.json
-index b68ec4b,91dbd16..0000000
---- a/package.json
-+++ b/package.json
-diff --cc pathToPdf/Jacob_Gronert.pdf
-index e58e1c3,e58e1c3..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc pathToPdf/Merna_Girgis.pdf
-index bf04514,bf04514..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc pathToPdf/Michael_Qiu.pdf
-index 690ce32,690ce32..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc pathToPdf/PeterVijehResumeMay.pdf
-index e9f9d6d,e9f9d6d..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc pathToPdf/Resume - Rija_Sana.pdf
-index 749db10,749db10..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc pathToPdf/Shu_Zhang.pdf
-index 957b759,957b759..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc pathToPdf/Steven_Dean.pdf
-index 21c7949,21c7949..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc pathToPdf/resume_dev.pdf
-index f2565ab,f2565ab..0000000
-deleted file mode 100755,100644
-Binary files differ
-diff --cc routes/pdfToTextConversion.js
-index 5299917,3fc5bc9..0000000
---- a/routes/pdfToTextConversion.js
-+++ b/routes/pdfToTextConversion.js
-@@@ -28,8 -28,8 +28,9 @@@ function getPdfToTextPromise(file) 
-  
-      return new Promise(function (resolve, reject) {
-          var fileName = file.slice(0,-4);
- -        var pdftotext    = spawn('pdftotext', [pathToPdf + fileName +'.pdf', saveTo + fileName + '.txt'],  {cwd: 'C:/Program Files/Xpdf/bin64'});
- +        var pdftotext    = spawn('pdftotext', [pathToPdf + fileName +'.pdf', saveTo + fileName + '.txt'],  {cwd: '/usr/local/bin/xpdfbin-linux-3.04/bin32'});
- +
-+ 
-          pdftotext.on('close', function (code) {
-              console.log('Exit code' + code);
-              //console.log(fileName);
-@@@ -42,7 -42,7 +43,8 @@@ function getParsedFilePromise(path,file
-      return new Promise(function (resolve, reject) {
-          fs.readFile(path, "utf-8", function(err, data) {
-              if (err) console.log(err);
- -            // var searchPhone;
- +           // var searchPhone;
-++
-              var phoneNumber;
-              var email;
-              phoneNumber = phoneMatch.exec(data.toString());
-diff --cc saveTo/Jacob_Gronert.txt
-index 987066a,63da758..0000000
-deleted file mode 100644,100644
---- a/saveTo/Jacob_Gronert.txt
-+++ /dev/null
-diff --cc saveTo/Merna_Girgis.txt
-index e25ff43,784d1d5..0000000
-deleted file mode 100644,100644
---- a/saveTo/Merna_Girgis.txt
-+++ /dev/null
-diff --cc saveTo/Michael_Qiu.txt
-index 79546d3,636a8b9..0000000
-deleted file mode 100644,100644
---- a/saveTo/Michael_Qiu.txt
-+++ /dev/null
-diff --cc saveTo/PeterVijehResumeMay.txt
-index 49d0591,cd84945..0000000
-deleted file mode 100644,100644
---- a/saveTo/PeterVijehResumeMay.txt
-+++ /dev/null
-diff --cc saveTo/Resume - Rija_Sana.txt
-index 26d063a,212dc2d..0000000
-deleted file mode 100644,100644
---- a/saveTo/Resume - Rija_Sana.txt
-+++ /dev/null
-diff --cc saveTo/Shu_Zhang.txt
-index fd10ff0,058cfdb..0000000
-deleted file mode 100644,100644
---- a/saveTo/Shu_Zhang.txt
-+++ /dev/null
-diff --cc saveTo/Steven_Dean.txt
-index f42baaa,6c9de47..0000000
-deleted file mode 100644,100644
---- a/saveTo/Steven_Dean.txt
-+++ /dev/null
-diff --cc saveTo/resume_dev.txt
-index 5d4ba17,37d61b9..0000000
-deleted file mode 100644,100644
---- a/saveTo/resume_dev.txt
-+++ /dev/null
-diff --cc views/index.ejs
-index 7b7e820,ab7ab3e..0000000
---- a/views/index.ejs
-+++ b/views/index.ejs
-@@@ -85,10 -85,6 +85,13 @@@
-                 </ul>
-             </div>
-  
-++<<<<<<< HEAD
- +
- +
- +
- +
-++=======
-++>>>>>>> alex
-     </div>
-    </body>
-  </html>
-diff --git a/.gitignore b/.gitignore
-index 1080065..4c66b39 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -1,9 +1,12 @@
- # Created by .ignore support plugin (hsz.mobi)
- ### Yeoman template
--node_modules/
--bower_components/
-+node_modules
-+bower_components
- *.log
- 
--build/
--dist/
-+build
-+dist
- 
-+.idea
-+pathToPdf
-+saveTo
-\ No newline at end of file
-diff --git a/.idea/.name b/.idea/.name
-deleted file mode 100644
-index 02660ca..0000000
---- a/.idea/.name
-+++ /dev/null
-@@ -1 +0,0 @@
--Resume
-\ No newline at end of file
-diff --git a/.idea/Resume.iml b/.idea/Resume.iml
-deleted file mode 100644
-index a32aaba..0000000
---- a/.idea/Resume.iml
-+++ /dev/null
-@@ -1,10 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<module type="WEB_MODULE" version="4">
--  <component name="NewModuleRootManager">
--    <content url="file://$MODULE_DIR$" />
--    <orderEntry type="inheritedJdk" />
--    <orderEntry type="sourceFolder" forTests="false" />
--    <orderEntry type="library" name="Node.js v0.10.25 Core Modules" level="application" />
--    <orderEntry type="library" name="Resume node_modules" level="project" />
--  </component>
--</module>
-\ No newline at end of file
-diff --git a/.idea/ResumenExtraction.iml b/.idea/ResumenExtraction.iml
-deleted file mode 100644
-index c956989..0000000
---- a/.idea/ResumenExtraction.iml
-+++ /dev/null
-@@ -1,8 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<module type="WEB_MODULE" version="4">
--  <component name="NewModuleRootManager">
--    <content url="file://$MODULE_DIR$" />
--    <orderEntry type="inheritedJdk" />
--    <orderEntry type="sourceFolder" forTests="false" />
--  </component>
--</module>
-\ No newline at end of file
-diff --git a/.idea/encodings.xml b/.idea/encodings.xml
-deleted file mode 100644
-index d821048..0000000
---- a/.idea/encodings.xml
-+++ /dev/null
-@@ -1,4 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
--</project>
-\ No newline at end of file
-diff --git a/.idea/jsLibraryMappings.xml b/.idea/jsLibraryMappings.xml
-deleted file mode 100644
-index e0ddcc7..0000000
---- a/.idea/jsLibraryMappings.xml
-+++ /dev/null
-@@ -1,8 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="JavaScriptLibraryMappings">
--    <file url="file://$PROJECT_DIR$" libraries="{Resume node_modules}" />
--    <file url="PROJECT" libraries="{Node.js v0.10.25 Core Modules}" />
--    <includedPredefinedLibrary name="Node.js Globals" />
--  </component>
--</project>
-\ No newline at end of file
-diff --git a/.idea/libraries/Resume_node_modules.xml b/.idea/libraries/Resume_node_modules.xml
-deleted file mode 100644
-index 48217ff..0000000
---- a/.idea/libraries/Resume_node_modules.xml
-+++ /dev/null
-@@ -1,14 +0,0 @@
--<component name="libraryTable">
--  <library name="Resume node_modules" type="javaScript">
--    <properties>
--      <option name="frameworkName" value="node_modules" />
--      <sourceFilesUrls>
--        <item url="file://$PROJECT_DIR$/node_modules" />
--      </sourceFilesUrls>
--    </properties>
--    <CLASSES>
--      <root url="file://$PROJECT_DIR$/node_modules" />
--    </CLASSES>
--    <SOURCES />
--  </library>
--</component>
-\ No newline at end of file
-diff --git a/.idea/misc.xml b/.idea/misc.xml
-deleted file mode 100644
-index 8662aa9..0000000
---- a/.idea/misc.xml
-+++ /dev/null
-@@ -1,4 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="ProjectRootManager" version="2" />
--</project>
-\ No newline at end of file
-diff --git a/.idea/modules.xml b/.idea/modules.xml
-deleted file mode 100644
-index 208805c..0000000
---- a/.idea/modules.xml
-+++ /dev/null
-@@ -1,8 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="ProjectModuleManager">
--    <modules>
--      <module fileurl="file://$PROJECT_DIR$/.idea/Resume.iml" filepath="$PROJECT_DIR$/.idea/Resume.iml" />
--    </modules>
--  </component>
--</project>
-\ No newline at end of file
-diff --git a/.idea/scopes/scope_settings.xml b/.idea/scopes/scope_settings.xml
-deleted file mode 100644
-index 922003b..0000000
---- a/.idea/scopes/scope_settings.xml
-+++ /dev/null
-@@ -1,5 +0,0 @@
--<component name="DependencyValidationManager">
--  <state>
--    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
--  </state>
--</component>
-\ No newline at end of file
-diff --git a/.idea/vcs.xml b/.idea/vcs.xml
-deleted file mode 100644
-index 6564d52..0000000
---- a/.idea/vcs.xml
-+++ /dev/null
-@@ -1,6 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="VcsDirectoryMappings">
--    <mapping directory="" vcs="" />
--  </component>
--</project>
-\ No newline at end of file
+diff --git a/output.txt b/output.txt
+index aca869b..e69de29 100644
+--- a/output.txt
++++ b/output.txt
+@@ -1,310 +0,0 @@
+-diff --cc .idea/runConfigurations/bin_www.xml
+-index b9fec03,a7afcc9..0000000
+-deleted file mode 100644,100644
+---- a/.idea/runConfigurations/bin_www.xml
+-+++ /dev/null
+-diff --cc .idea/workspace.xml
+-index a05c6cc,9ba0474..0000000
+-deleted file mode 100644,100644
+---- a/.idea/workspace.xml
+-+++ /dev/null
+-diff --cc app.js
+-index a2de2b9,99e4600..0000000
+---- a/app.js
+-+++ b/app.js
+-@@@ -7,7 -7,9 +7,10 @@@ var bodyParser = require('body-parser')
+-  var mongoose = require('mongoose');
+-  //var routes = require('./routes/index');
+-  var users = require('./routes/users');
+-- var routes = require('./routes/pdfToTextConversion');
+-++
+-+ //var routes = require('./routes/pdfToTextConversion');
+-+ var routes = require('./routes/asyncPdfToText');
+-+ 
+-  var getResumes = require('./routes/getResumes');
+-  
+-  //connect to database
+-diff --cc bin/www
+-index 08db510,08db510..0000000
+-mode 100755,100644..100755
+---- a/bin/www
+-+++ b/bin/www
+-diff --cc package.json
+-index b68ec4b,91dbd16..0000000
+---- a/package.json
+-+++ b/package.json
+-diff --cc pathToPdf/Jacob_Gronert.pdf
+-index e58e1c3,e58e1c3..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc pathToPdf/Merna_Girgis.pdf
+-index bf04514,bf04514..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc pathToPdf/Michael_Qiu.pdf
+-index 690ce32,690ce32..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc pathToPdf/PeterVijehResumeMay.pdf
+-index e9f9d6d,e9f9d6d..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc pathToPdf/Resume - Rija_Sana.pdf
+-index 749db10,749db10..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc pathToPdf/Shu_Zhang.pdf
+-index 957b759,957b759..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc pathToPdf/Steven_Dean.pdf
+-index 21c7949,21c7949..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc pathToPdf/resume_dev.pdf
+-index f2565ab,f2565ab..0000000
+-deleted file mode 100755,100644
+-Binary files differ
+-diff --cc routes/pdfToTextConversion.js
+-index 5299917,3fc5bc9..0000000
+---- a/routes/pdfToTextConversion.js
+-+++ b/routes/pdfToTextConversion.js
+-@@@ -28,8 -28,8 +28,9 @@@ function getPdfToTextPromise(file) 
+-  
+-      return new Promise(function (resolve, reject) {
+-          var fileName = file.slice(0,-4);
+- -        var pdftotext    = spawn('pdftotext', [pathToPdf + fileName +'.pdf', saveTo + fileName + '.txt'],  {cwd: 'C:/Program Files/Xpdf/bin64'});
+- +        var pdftotext    = spawn('pdftotext', [pathToPdf + fileName +'.pdf', saveTo + fileName + '.txt'],  {cwd: '/usr/local/bin/xpdfbin-linux-3.04/bin32'});
+- +
+-+ 
+-          pdftotext.on('close', function (code) {
+-              console.log('Exit code' + code);
+-              //console.log(fileName);
+-@@@ -42,7 -42,7 +43,8 @@@ function getParsedFilePromise(path,file
+-      return new Promise(function (resolve, reject) {
+-          fs.readFile(path, "utf-8", function(err, data) {
+-              if (err) console.log(err);
+- -            // var searchPhone;
+- +           // var searchPhone;
+-++
+-              var phoneNumber;
+-              var email;
+-              phoneNumber = phoneMatch.exec(data.toString());
+-diff --cc saveTo/Jacob_Gronert.txt
+-index 987066a,63da758..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/Jacob_Gronert.txt
+-+++ /dev/null
+-diff --cc saveTo/Merna_Girgis.txt
+-index e25ff43,784d1d5..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/Merna_Girgis.txt
+-+++ /dev/null
+-diff --cc saveTo/Michael_Qiu.txt
+-index 79546d3,636a8b9..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/Michael_Qiu.txt
+-+++ /dev/null
+-diff --cc saveTo/PeterVijehResumeMay.txt
+-index 49d0591,cd84945..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/PeterVijehResumeMay.txt
+-+++ /dev/null
+-diff --cc saveTo/Resume - Rija_Sana.txt
+-index 26d063a,212dc2d..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/Resume - Rija_Sana.txt
+-+++ /dev/null
+-diff --cc saveTo/Shu_Zhang.txt
+-index fd10ff0,058cfdb..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/Shu_Zhang.txt
+-+++ /dev/null
+-diff --cc saveTo/Steven_Dean.txt
+-index f42baaa,6c9de47..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/Steven_Dean.txt
+-+++ /dev/null
+-diff --cc saveTo/resume_dev.txt
+-index 5d4ba17,37d61b9..0000000
+-deleted file mode 100644,100644
+---- a/saveTo/resume_dev.txt
+-+++ /dev/null
+-diff --cc views/index.ejs
+-index 7b7e820,ab7ab3e..0000000
+---- a/views/index.ejs
+-+++ b/views/index.ejs
+-@@@ -85,10 -85,6 +85,13 @@@
+-                 </ul>
+-             </div>
+-  
+-++<<<<<<< HEAD
+- +
+- +
+- +
+- +
+-++=======
+-++>>>>>>> alex
+-     </div>
+-    </body>
+-  </html>
+-diff --git a/.gitignore b/.gitignore
+-index 1080065..4c66b39 100644
+---- a/.gitignore
+-+++ b/.gitignore
+-@@ -1,9 +1,12 @@
+- # Created by .ignore support plugin (hsz.mobi)
+- ### Yeoman template
+--node_modules/
+--bower_components/
+-+node_modules
+-+bower_components
+- *.log
+- 
+--build/
+--dist/
+-+build
+-+dist
+- 
+-+.idea
+-+pathToPdf
+-+saveTo
+-\ No newline at end of file
+-diff --git a/.idea/.name b/.idea/.name
+-deleted file mode 100644
+-index 02660ca..0000000
+---- a/.idea/.name
+-+++ /dev/null
+-@@ -1 +0,0 @@
+--Resume
+-\ No newline at end of file
+-diff --git a/.idea/Resume.iml b/.idea/Resume.iml
+-deleted file mode 100644
+-index a32aaba..0000000
+---- a/.idea/Resume.iml
+-+++ /dev/null
+-@@ -1,10 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--<module type="WEB_MODULE" version="4">
+--  <component name="NewModuleRootManager">
+--    <content url="file://$MODULE_DIR$" />
+--    <orderEntry type="inheritedJdk" />
+--    <orderEntry type="sourceFolder" forTests="false" />
+--    <orderEntry type="library" name="Node.js v0.10.25 Core Modules" level="application" />
+--    <orderEntry type="library" name="Resume node_modules" level="project" />
+--  </component>
+--</module>
+-\ No newline at end of file
+-diff --git a/.idea/ResumenExtraction.iml b/.idea/ResumenExtraction.iml
+-deleted file mode 100644
+-index c956989..0000000
+---- a/.idea/ResumenExtraction.iml
+-+++ /dev/null
+-@@ -1,8 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--<module type="WEB_MODULE" version="4">
+--  <component name="NewModuleRootManager">
+--    <content url="file://$MODULE_DIR$" />
+--    <orderEntry type="inheritedJdk" />
+--    <orderEntry type="sourceFolder" forTests="false" />
+--  </component>
+--</module>
+-\ No newline at end of file
+-diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+-deleted file mode 100644
+-index d821048..0000000
+---- a/.idea/encodings.xml
+-+++ /dev/null
+-@@ -1,4 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--<project version="4">
+--  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+--</project>
+-\ No newline at end of file
+-diff --git a/.idea/jsLibraryMappings.xml b/.idea/jsLibraryMappings.xml
+-deleted file mode 100644
+-index e0ddcc7..0000000
+---- a/.idea/jsLibraryMappings.xml
+-+++ /dev/null
+-@@ -1,8 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--<project version="4">
+--  <component name="JavaScriptLibraryMappings">
+--    <file url="file://$PROJECT_DIR$" libraries="{Resume node_modules}" />
+--    <file url="PROJECT" libraries="{Node.js v0.10.25 Core Modules}" />
+--    <includedPredefinedLibrary name="Node.js Globals" />
+--  </component>
+--</project>
+-\ No newline at end of file
+-diff --git a/.idea/libraries/Resume_node_modules.xml b/.idea/libraries/Resume_node_modules.xml
+-deleted file mode 100644
+-index 48217ff..0000000
+---- a/.idea/libraries/Resume_node_modules.xml
+-+++ /dev/null
+-@@ -1,14 +0,0 @@
+--<component name="libraryTable">
+--  <library name="Resume node_modules" type="javaScript">
+--    <properties>
+--      <option name="frameworkName" value="node_modules" />
+--      <sourceFilesUrls>
+--        <item url="file://$PROJECT_DIR$/node_modules" />
+--      </sourceFilesUrls>
+--    </properties>
+--    <CLASSES>
+--      <root url="file://$PROJECT_DIR$/node_modules" />
+--    </CLASSES>
+--    <SOURCES />
+--  </library>
+--</component>
+-\ No newline at end of file
+-diff --git a/.idea/misc.xml b/.idea/misc.xml
+-deleted file mode 100644
+-index 8662aa9..0000000
+---- a/.idea/misc.xml
+-+++ /dev/null
+-@@ -1,4 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--<project version="4">
+--  <component name="ProjectRootManager" version="2" />
+--</project>
+-\ No newline at end of file
+-diff --git a/.idea/modules.xml b/.idea/modules.xml
+-deleted file mode 100644
+-index 208805c..0000000
+---- a/.idea/modules.xml
+-+++ /dev/null
+-@@ -1,8 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--<project version="4">
+--  <component name="ProjectModuleManager">
+--    <modules>
+--      <module fileurl="file://$PROJECT_DIR$/.idea/Resume.iml" filepath="$PROJECT_DIR$/.idea/Resume.iml" />
+--    </modules>
+--  </component>
+--</project>
+-\ No newline at end of file
+-diff --git a/.idea/scopes/scope_settings.xml b/.idea/scopes/scope_settings.xml
+-deleted file mode 100644
+-index 922003b..0000000
+---- a/.idea/scopes/scope_settings.xml
+-+++ /dev/null
+-@@ -1,5 +0,0 @@
+--<component name="DependencyValidationManager">
+--  <state>
+--    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
+--  </state>
+--</component>
+-\ No newline at end of file
+-diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+-deleted file mode 100644
+-index 6564d52..0000000
+---- a/.idea/vcs.xml
+-+++ /dev/null
+-@@ -1,6 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--<project version="4">
+--  <component name="VcsDirectoryMappings">
+--    <mapping directory="" vcs="" />
+--  </component>
+--</project>
+-\ No newline at end of file
