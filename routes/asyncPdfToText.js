@@ -1,48 +1,61 @@
 /**
- * Created by Alejandro on 9/14/2015.
+ * Created by Alejandro on 9/4/15.
  */
-/**
- * Created by lakshmi on 9/4/15.
- */
+
 var express = require('express');
 var router = express.Router();
 var path = require('path');
 var fs = require('fs');
 var uuid = require ('uuid');
 var async = require('async');
-
+var mv = require('mv');
 var Resume = require('../modules/Resume');
-
 var asyncTasks = [];
-
 var pathToPdf = path.join(__dirname, '../pathToPdf/');
+var intermediate = path.join(__dirname, '../intermediate/');
 var saveTo = path.join(__dirname, '../saveTo/');
 var spawn = require('child_process').spawn;
-
-var resumeInfo = [];
-
-
+var batch;
+var uniqueId;
+var arrId = {};
 var phoneMatch = /\({0,1}\s*\d{3}?\s*\){0,1}\-*\s*\d{3}?\s*\-*(\-\?)*\s*\d{4}/;
 var emailMatch =  /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/i;
 
-
-function getPdfToText(file,callback) {
-
+function getPdfToText(file, uniqueId, callback) {
     var fileName = file.slice(0,-4);
-    //console.log('filename: ', fileName);
+
     var pdftotext = spawn('pdftotext', [pathToPdf + fileName +'.pdf', saveTo + fileName + '.txt'],  {cwd: 'C:/Program Files/Xpdf/bin64'});
-
     pdftotext.on('close', function (code) {
-        //console.log('Exit code' + code);
-        //console.log('close:',fileName);
-        callback(fileName);
+        //if(code!=0) callback(code)
+        Resume.findByIdAndUpdate(uniqueId, {status:'1'}, function (err, response) {
+            if (err) {
+                console.log("Something broke", + " " + err);
+            } else {
 
+                console.log("Success");
+            }
+        });
+        callback();
+    });
+}
+
+function updateStatus(id,obj){
+    Resume.findByIdAndUpdate(id, obj, function (err, response) {
+
+        if (err) {
+            console.log("Something broke while updating status", + " " + err);
+        } else {
+
+            console.log("Successfully updated status");
+        }
     });
 
 }
 
-function extractDataAndSave(path,filename, callback) {
-    console.log('**********entra extract*********');
+function extractDataAndSave(path, id) {
+    //log into mongo start of process
+    updateStatus(id,{status:'2'});
+
     fs.readFile(path, "utf-8", function(err, data) {
         if (err) console.log(err);
         console.log('name from extract:', path);
@@ -56,90 +69,88 @@ function extractDataAndSave(path,filename, callback) {
         else phoneNumber = 'NA';
         //console.log('phone number is', phoneNumber);
         email = emailMatch.exec(data.toString())[0];
-        var resumeObj = {name: filename, timestamp: Date.now(), email: email, phone: phoneNumber};
-        //console.log(resumeObj);
-        //return resumeObj;
-        //console.log('promise finished',filename);
-        callback(resumeObj);
+        //log into mongo end of process
+        updateStatus(id,{status:'3', processDate: Date.now(), email: email, phone: phoneNumber });
     });
-
 }
 
 function saveMongo(obj){
-
     (new Resume(obj)).save(function (err, response) {
         if (err) {
-            console.log('Error while inserting: ' + obj.name);
+            console.log('Error while inserting: ' + obj.name + " " +err);
         } else {
             console.log('Resume successfully inserted');
         }
     });
+    return Resume(obj);
+}
 
+function moveFiles(source, destination) {
+    fs.readdir(pathToPdf, function (err, files) {
+        if (err){
+            console.log('Error while reading files');
+
+        }
+        else{
+            var count = 0;
+            files.forEach(function (file) {
+                mv(source + file, destination + file, function (err) {
+                    if (err) {
+                        console.log("Error while moving files")
+                    }
+                })
+
+            });
+        }
+    });
+    return true;
 }
 
 router.get('/', function(req, res, next){
 
-        fs.readdir(pathToPdf, function(err, files) {
-            if (err) return;
+    //moveFiles(pathToPdf, intermediate);
 
-            files.forEach(function(file){
-                // We don't actually execute the async action here
-                // We add a function containing it to an array of "tasks"
-                asyncTasks.push(function(callback){
-                    // Call an async function, often a save() to DB
-                    getPdfToText(file,function call(name){
-                        var path = saveTo + name + '.txt';
+    fs.readdir(pathToPdf, function(err, files) {
 
-                       extractDataAndSave(path,name, function(obj){
-                           console.log('obj from callback',obj);
-                            callback(obj);
-                       });
+        if (err) return;
 
-                    });
-                    //console.log('txtfile',txtFile);
-                    //callback(txtFile);
+        var count = 0;
+        files.forEach(function(file){
+            if( count % 5 === 0){
 
+                batch = uuid.v4();
+            }
+            count++;
+
+            var filename = file.slice(0,-4);
+            var newResumeObj= {name: filename, status: '0', creationDate:Date.now(), uuid:batch };
+
+            newResumeObj = saveMongo(new Resume(newResumeObj));
+            uniqueId = newResumeObj._id;
+            arrId[filename] = uniqueId ;
+            console.log("ID",uniqueId);
+            asyncTasks.push(function(callback){
+                // Call an async function
+                getPdfToText(file,uniqueId,function(){
+                    callback();
                 });
             });
-
-            //console.log('***Asyn tasks',asyncTasks);
-            async.parallelLimit(asyncTasks,5, function(obj){
-                //var path = saveTo + name + '.txt';
-                // All tasks are done now
-                console.log('file from callback',obj);
-                saveMongo(obj);
-                //extractDataAndSave('path','filename');
-            });
-
-            /*var promises = files.map(getPdfToTextPromise);
-            Promise.all(promises).then(function (filesname) {
-                console.log('files: ',filesname);
-                var readArr = [];
-                var resumeInfo =[];
-                filesname.forEach(function(name){
-                    var path = saveTo + name + '.txt';
-                    readArr.push(getParsedFilePromise(path,name));
-                    //getData(file);
-                });
-                Promise.all(readArr).then(function (data) {
-                    console.log('Objects: ',data);
-                    data.forEach(function(object){
-                        //console.log('object en promises then: ',object)
-                        (new Resume(object)).save(function (err, response) {
-                            if (err) {
-                                console.log('repeated');
-                            } else {
-                                console.log('Resume successfully inserted');
-                            }
-                        });
-
-                    });
-                });
-            });*/
         });
 
+        async.parallelLimit(asyncTasks,5, function(){
+            files.forEach(function(fileName){
+                var fileName = fileName.slice(0,-4);
+                var path = saveTo + fileName +'.txt';
+                var id = arrId[fileName];
 
-    res.render('index',{title: "Resume Extractor"});
+                extractDataAndSave(path, id);
+            });
+            return true;
+
+        });
+
+    });
+    res.status(202).render('index',{title: "Resume Extractor"});
 });
 
 module.exports = router;

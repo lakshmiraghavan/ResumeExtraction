@@ -1,22 +1,0 @@
-Michael Qiu
-Fremont, CA makein2005@gmail.com - 714-274-3409
-· Around 2+ years of extensive experience in the field of Web Applications development using HTML 4.01/5, CSS (2/3), XHTML, JavaScript, jQuery, AJAX, XML and JSON. · Proficient in developing web page quickly and effectively using, HTML4.01/ 5, CSS3, JavaScript and JQuery and also experience in making webpage cross browser compatible. · Experience working in CSS Frameworks also responsive web design frameworks like BootstrapJs and JUQERY UI · Extensive Experience in Developing Applications using AJAX, Object Oriented (OO) JavaScript, JSON, and XML. · Experience in developing Prototypes. · Experience in developing functional prototype pages from the mock ups. · Experience in debugging and troubleshooting the existing code. · Handling cross browser/platform compatibility issues (IE, Firefox, and Safari). · Experience in complete Software Product Development Life Cycle. · In-Depth knowledge/Experience of Web 2.0, JavaScript, jQuery, W3C Standards. · Experience in using various IDE's, Dreamweaver, and Eclipse. Authorized to work in the US for any employer
-WORK EXPERIENCE
-UI Developer
-Fuhu, inc - Los Angeles, CA - October 2014 to Present
-Responsibilities: · Developed single page application from scratch using jQuery · Involved in implementing new features and changed application behavior according to the client needs. · Also was involved in debugging application and testing on Browser stack Emulator and fixing the cross browser issue using ModernizrJs. · Creating custom widgets and plug-ins and writing code in a modularized and reusable manner. · Specially working with AJAX data consisting of JSON/XML/JSONP responses, parsing the same and presenting on the UI layer. · Proceeding over code review meetings, understanding the cross framework impact across the organization and defining controls / plug-ins accordingly. · Main area of concern remains compiling to accessibility requirements for handicapped / visually impaired or practically anyone who uses the website. · Making pages that are cross-browser compatible. · Coordinated with QA engineers and my teammates to resolve the blockers, and also involved in discussion sessions of backend and server side issues blocking development. · Involved in complete SDLC - Requirement Analysis, Development, System and Integration Testing.
-Website: http://www.fuhu.com/
-Environment: HTML, CSS, JQUERY, AJAX, XML, JSON, WINDOWS.
-UI Programmer
-
-Caijing technology Inc. - zhuhai China - September 2010 to November 2011
-Responsibilities: · Involved in discussion with the System Analyst to identify the technical requirements. · Worked with CSS background, CSS Layouts, CSS positioning, CSS text, CSS border, CSS margin, CSS padding, Pseudo elements and CSS behaviors. · Designed business applications using web technologies like HTML, XHTML, and CSS based on the W3C standards. · Worked on cross-browser compatibility and fixed bugs for several browsers. · Extensively used JQuery in implementing various GUI components in application portal. · Worked with teams where requirements are constantly being implemented, tested and improved. · Handled all aspects of the web application including maintaining, testing, debugging and deploying. · Involved in daily meetings and weekly scrum meetings.
-Website: http://www.caijinggame.com/
-Environment: HTML, CSS, JavaScript, JQuery, XML, Windows XP
-EDUCATION
-Master of Computer Science
-California State University, Fullerton
-ADDITIONAL INFORMATION
-Skills · UI Web: HTML, DHTML, HTML 5, XHTML, XML, JavaScript, AJAX, jQuery, JSON, CSS3, UI Concept Modeling · Web/App Servers: Apache Tomcat 7.0.30/6.6.20, WebSphere 7.0 · Database: Oracle, MS-Access, SQL 2000/2005, PL/SQL, T-SQL, MySQL · Version Control: SVN, Clearcase · Methodologies: Agile, Rational Unified Process (RUP) · Operating System: Windows XP, Windows Vista, Windows 2007 · Protocols: FTP, TFTP, HTTP, HTTPS, POP3, SMTP, SOAP · Graphics Editors: Adobe PhotoShop CS3, Adobe Illustrator CS3 · GUI Editors: MS FrontPage, SVN Eclipse, Notepadd++
-
-

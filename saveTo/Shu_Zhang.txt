@@ -1,17 +1,0 @@
-Shu Zhang
-Woodland Hills, CA zhangshu1120@gmail.com - 8183316648
-Seeking an entry-level computer engineering position in Los Angeles County,Orange County,San Francisco bay area and San Diego. Authorized to work in the US for any employer
-WORK EXPERIENCE
-Intership
-NARI Technology Development Co., Ltd.,Nanjing,China ­ Nanjing, China - Nanjing, CN - December 2010 to January 2011 Nanjing, China - Nanjing, China Duties and Responsibilities: draw SCADA one-line diagrams Input telemetering and telesignalisation and telecontrol information Build and debug computer net work of specific project item
-EDUCATION
-Bachelor of Science in Computer Engineering
-California State University - Northridge, CA 2015
-SKILLS
-Java and C,Android Application Development,MySQL,HTML5 and CSS3,JavaScript and jQuery,XML and JSON,AngularJS,PHP,WordPress,Agile, VHDL, Assembly language, Microsoft PowerPoint, Self motivated, Strategic thinking, Passionate learner
-ADDITIONAL INFORMATION
-COURSE PROJECT S.O.A.(Smart Outfit Assistant) on Android Smart Outfit Assistant is an android app that would assist people in choosing your outfit for a specific day or event. At it's core, SOA contains a database of all the clothes divided into several categories. Each piece will contain a large set of attributes to help the app and the user pick just the right outfit for the day.
-Floating-point multiplier In this personal senior design project, a simple floating-point multiplier has been built that accepts as operands two 12-bit, possibly unnormalized floating-point numbers, and that output a 12-bit normalized number and an overflow indicator
-FOREIGN LANGUAGE SKILLS Speak,read and write Chinese
-
-

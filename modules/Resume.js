@@ -3,14 +3,19 @@
  */
 var mongoose = require('mongoose');
 var Resume = mongoose.model('resume', {
-    name: String,
-    timestamp:Date,
-    email: {
+    name:  {
         type: String,
         unique: true,
-        required: true
+        require: true
     },
-    phone: String
+    creationDate:Date,
+    processDate:Date,
+    status:String,
+    email: String,
+    phone: String,
+    uuid: String
+
 });
 module.exports = Resume;
+
 

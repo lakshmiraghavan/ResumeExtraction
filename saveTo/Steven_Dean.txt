@@ -1,23 +1,0 @@
-Steven Dean
-Web Developer - Group O
-stevendeanjr@gmail.com
-Develops a wide selection of web properties to meet a variety of client needs. From microsites and landing pages to comprehensive online stores, reward fulfillment sites, and ordering portals, can design and deploy a solution to fit any situation. Provides online development for some of the world's top brands, including: AT&T, Michelin, Microsoft, and Staples.
-WORK EXPERIENCE
-Web Developer
-Group O - May 2014 to Present Support the development of new Group O applications as well as assist in the development of integrations with existing systems, both client and internal. Responsibilities include specification analysis, user interface design and development, testing, debugging, and maintenance.
-Application Tester
-Group O - September 2013 to May 2014 Web-based and internal application testing. -Documenting and maintaining records of all planning and testing activities. -Monitor data files and other processing notifications for anomalies. -Participate in internal ISO auditing. -Monitor the Marketing Solutions SharePoint site for adherence to standards set by the Quality Assurance department. -Supporting Group O's Quality Management System
-IT Specialist
-Project Now - April 2013 to September 2013 Serves as the primary point of technical contact for problems or questions, oversees installation, modification and repairs to personal computer hardware and software systems, provides technical assistance and training to system users, maintains database and provides office support by performing various duties.
-Store Room Clerk/ Cook
-The University of Iowa Hospitals and Clinics - April 2008 to April 2013 Locate, deliver, and report inventory using a database system Cook
-Data Analyst
-The University of Iowa Hospitals and Clinics - September 2012 to October 2012 Data manipulation, collection, extraction.
-Skills & Expertise VB.NET C# Microsoft SQL Server
-
-Visual Studio Visual Basic CSS Web Applications SharePoint HTML HTML 5 Photoshop Databases Testing Complex Problem Solving Quality Assurance Coding Test Cases DevTrack SpiraTest GoToMeeting WebEx Kronos Timekeeping Kronos Critical Thinking Mathematics Judgment and Decision-Making Computers and Electronics Java Scala OCaml Object Oriented Design Functional Design Microsoft Office ChildPlus.net Wireshark Networking Software Development Full Life Cycle Development Windows Linux Data Manipulation Data Extraction Data Collection Mobile Testing
-EDUCATION
-B.A. in Computer Science
-University of Iowa 2006 to 2012
-
-
